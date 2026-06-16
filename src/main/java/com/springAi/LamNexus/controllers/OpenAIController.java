@@ -1,4 +1,4 @@
-package com.springAi.LamNexus;
+package com.springAi.LamNexus.controllers;
 
 import com.springAi.LamNexus.DTO.ChatRequest;
 import org.springframework.ai.openai.OpenAiChatModel;
