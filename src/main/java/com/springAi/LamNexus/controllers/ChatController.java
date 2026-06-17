@@ -59,8 +59,7 @@ public class ChatController {
                     ;
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError()
-                    .body(e.getMessage());
+            return ResponseEntity.status(500).body(e.getClass().getSimpleName() + ": " + e.getMessage());
         }
     }
     @GetMapping("/test")
