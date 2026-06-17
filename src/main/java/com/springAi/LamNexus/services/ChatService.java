@@ -1,26 +1,38 @@
 package com.springAi.LamNexus.services;
 
-import org.springframework.ai.openai.OpenAiChatModel;
+import com.springAi.LamNexus.provider.OpenRouterProvider;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ChatService {
 
-    private final OpenAiChatModel model;
+    private final OpenRouterProvider openRouterProvider;;
 
-    public ChatService(OpenAiChatModel model) {
-        this.model = model;
+    public ChatService(OpenRouterProvider openRouterProvider) {
+        this.openRouterProvider = openRouterProvider;
     }
 
-    public String ask(String provider, String prompt) {
 
-        String modelName = switch (provider.toLowerCase()) {
-            case "gpt" -> "openai/gpt-oss-20b:free";
-            case "claude" -> "anthropic/claude-3-haiku";
+    public String ask(String provider,String model, String prompt) {
 
-            case "gemini" -> "google/gemini-2.5-flash";
+        return switch (provider.toLowerCase()) {
+//            case "gpt" -> "openai/gpt-oss-20b:free";
+//            case "claude" -> "anthropic/claude-3-haiku";
+//
+//            case "gemini" -> "google/gemini-2.5-flash";
+//
+//            case "llama" -> "meta-llama/llama-3.3-70b-instruct";
+            case "openrouter" ->
+                    openRouterProvider.generate(
+                            model,
+                            prompt
+                    );
 
-            case "llama" -> "meta-llama/llama-3.3-70b-instruct";
-
-            default -> "openai/gpt-oss-20b:free";
+            default ->
+                    throw new RuntimeException(
+                            "Unsupported provider: "
+                                    + provider
+                    );
         };
     }
 }
