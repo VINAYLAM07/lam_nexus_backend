@@ -2,6 +2,7 @@ package com.springAi.LamNexus.services;
 
 import com.springAi.LamNexus.provider.GeminiProvider;
 import com.springAi.LamNexus.provider.GroqProvider;
+import com.springAi.LamNexus.provider.OllamaProvider;
 import com.springAi.LamNexus.provider.OpenRouterProvider;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,13 @@ public class ChatService {
     private final GeminiProvider geminiProvider;
     private final GroqProvider groqProvider;
 
-    public ChatService(OpenRouterProvider openRouterProvider, GeminiProvider geminiProvider, GroqProvider groqProvider) {
+    private final OllamaProvider ollamaProvider;
+
+    public ChatService(OpenRouterProvider openRouterProvider, GeminiProvider geminiProvider, GroqProvider groqProvider, OllamaProvider ollamaProvider) {
         this.openRouterProvider = openRouterProvider;
         this.geminiProvider = geminiProvider;
         this.groqProvider = groqProvider;
+        this.ollamaProvider = ollamaProvider;
     }
 
 
@@ -42,6 +46,11 @@ public class ChatService {
                     groqProvider.generate(
                             model,
                             prompt);
+            case "ollama" ->
+                ollamaProvider.generate(
+                        model,
+                        prompt
+                );
             default ->
                     throw new RuntimeException(
                             "Unsupported provider: "
