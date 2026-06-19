@@ -1,5 +1,6 @@
 package com.springAi.LamNexus.provider;
 
+import com.springAi.LamNexus.util.ResponseCleaner;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
@@ -19,6 +20,7 @@ public class OpenRouterProvider implements ModelProvider{
         Prompt p = new Prompt(prompt, OpenAiChatOptions.builder()
                 .model(model)
                 .build());
-        return chatModel.call(p).getResult().getOutput().getText();
+        String response = chatModel.call(p).getResult().getOutput().getText();
+        return ResponseCleaner.clean(response);
     }
 }
