@@ -1,6 +1,7 @@
 package com.springAi.LamNexus.provider;
 
 
+import com.springAi.LamNexus.util.ResponseCleaner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -48,9 +49,9 @@ public class GroqProvider {
         Map message =
                 (Map) choice.get("message");
 
-        return message.get("content")
+        String content =  message.get("content")
                 .toString();
-
+        return ResponseCleaner.clean(content);
     }
 
 }

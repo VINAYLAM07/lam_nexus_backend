@@ -1,5 +1,6 @@
 package com.springAi.LamNexus.provider;
 
+import com.springAi.LamNexus.util.ResponseCleaner;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.google.genai.GoogleGenAiChatModel;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,11 @@ public class GeminiProvider implements ModelProvider {
             String model,
             String prompt) {
 
-        return chatModel.call(
+        String response = chatModel.call(
                         new Prompt(prompt))
                 .getResult()
                 .getOutput()
                 .getText();
+        return ResponseCleaner.clean(response);
     }
 }
