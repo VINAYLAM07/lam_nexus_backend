@@ -19,7 +19,7 @@ public class CorsConfig {
 
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://localhost:5173","https://lam-nexus-6qjbmpauj-vinaylam07s-projects.vercel.app/")
+                                "http://localhost:5173","https://*.vercel.app")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
